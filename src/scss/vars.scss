@@ -1,0 +1,32 @@
+/* ==========================================================================
+   #GLOBALS
+   ========================================================================== */
+
+$max-width: 1400px;
+
+/**
+* Typographic settings
+*/
+
+$font-primary: 'Open Sans', sans-serif;
+
+/** Colors **/
+$white: #ffffff;
+$black: #000000;
+$primary: #de0000;
+$secondary: $black;
+
+/** Colors Config **/
+$text-color: $black;
+$linkColor: $primary;
+
+/** Sizes **/
+$base-size: 16px;
+
+/**
+* Media query breakpoints
+*/
+
+$screen-sm-min: 700px;
+$screen-md-min: 1024px;
+$screen-lg-min: 1200px;

@@ -1,0 +1,27 @@
+/* ==========================================================================
+   #BASE
+   ========================================================================== */
+
+@media (min-width: $screen-sm-min) { /* Wider than 700px */ }
+@media (min-width: $screen-md-min) { /* Wider than 1024px */ }
+@media (min-width: $screen-lg-min) { /* Wider than 1200px */}
+
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+}
+
+html {
+    -webkit-font-smoothing: antialiased; /* 1 */
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100%; /* 2 */
+}
+
+body {
+    font-size: $base-size;
+    font-family: $font-primary;
+    max-width: $max-width;
+    margin-left: auto;
+    margin-right: auto;
+}
