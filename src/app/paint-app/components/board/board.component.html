@@ -1,3 +1,6 @@
-<p>
-  board works!
-</p>
+<canvas 
+    #boardCanvas
+    (window:resize)="onResizeBoard()" 
+    (mousedown)="handleStartDraw($event)" 
+    (mousemove)="handleDrawing($event)"
+    (mouseup)="handleEndDraw($event)"></canvas>
