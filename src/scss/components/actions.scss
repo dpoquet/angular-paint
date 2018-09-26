@@ -1,0 +1,21 @@
+/* ==========================================================================
+   #ACTIONS
+   ========================================================================== */
+
+  .c-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @media (min-width: $screen-md-min) { 
+      justify-content: flex-start;
+    }
+
+    &__icon {
+      font-size: 25px;
+      color: $primary;
+      cursor: pointer;
+
+      &:nth-child(1) { margin-right: 20px; }
+    }
+  }

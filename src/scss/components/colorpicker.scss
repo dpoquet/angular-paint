@@ -1,0 +1,33 @@
+/* ==========================================================================
+   #COLORPICKER
+   ========================================================================== */
+
+  .c-colorpicker {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &__color {
+      display: block;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: 1px solid transparent;
+      cursor: pointer;
+
+      &:after {
+        content: '';
+        display: none;
+        width: 6px;
+        height: 12px;
+        margin: -2px auto 0 auto;
+        border: solid $white;
+        border-width: 0 2px 2px 0;
+        transform: rotate(45deg);
+      }
+
+      &.is-active {
+        &:after { display: block; }
+      }
+    }
+  }

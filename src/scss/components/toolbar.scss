@@ -1,0 +1,17 @@
+/* ==========================================================================
+   #TOOLBAR
+   ========================================================================== */
+
+  .c-toolbar {
+    position: relative;
+    overflow: hidden;
+
+    &__section {
+      margin-bottom: 10px;
+      &:last-child { margin-bottom: 0; } 
+      
+      @media (min-width: $screen-md-min) { 
+        margin-bottom: 25px;
+      }
+    }
+  }

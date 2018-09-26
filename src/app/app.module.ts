@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { AppComponent } from './app.component';
 import { PaintAppComponent } from './paint-app/paint-app.component';
@@ -20,7 +21,8 @@ import { ToolbarSizepickerComponent } from './paint-app/components/toolbar-sizep
     ToolbarSizepickerComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
