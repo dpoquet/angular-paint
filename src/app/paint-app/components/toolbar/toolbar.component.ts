@@ -1,4 +1,7 @@
+import { Brush } from './../../models/brush.model';
 import { Component, OnInit } from '@angular/core';
+import { Tool } from '../../models/tool.model';
+import { PaintService } from '../../services/paint.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -29,8 +32,15 @@ export class ToolbarComponent implements OnInit {
     '#f95523'];
 
   public availableSizes = [1, 3, 5, 10];
+  public activeTool = new Brush();
 
-  constructor() {}
+  constructor(private paintService: PaintService) {
+    this.paintService.activeTool = this.activeTool;
+  }
 
   ngOnInit() {}
+
+  public reset() {
+    this.paintService.resetBoard();
+  }
 }

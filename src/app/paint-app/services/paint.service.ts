@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class PaintService {
+  public context;
   public activeColor: string;
   public activeSize: number;
   public activeTool;
@@ -12,41 +13,41 @@ export class PaintService {
 
   constructor() {}
 
-  public startDraw(context, coords) {
-    console.log('Active Color: ', this.activeColor);
-    console.log('Active Size: ', this.activeSize);
-    console.log('Active Tool: ', this.activeTool);
-
-    if (this.startDrawing) {
+  public startDraw(coords) {
+    if (this.startDrawing || !this.context || !this.activeColor || !this.activeTool || !this.activeSize) {
       return;
     }
 
     this.lastPosX = coords.positionX;
     this.lastPosY = coords.positionY;
 
-    context.strokeStyle = this.activeColor;
-    context.lineWidth = this.activeSize;
+    this.context.strokeStyle = this.activeColor;
+    this.context.lineWidth = this.activeSize;
 
-    // Config //
-    context.lineJoin = 'round';
-    context.lineCap = 'round';
+    // Set custom config from model //
+    for (const key in this.activeTool.config) {
+      if (this.activeTool.config.hasOwnProperty(key)) {
+        const propierty = this.activeTool.config[key];
+        this.context[key] = propierty;
+      }
+    }
 
-    context.beginPath();
-    context.moveTo(this.lastPosX, this.lastPosY);
-    context.stroke();
+    this.context.beginPath();
+    this.context.moveTo(this.lastPosX, this.lastPosY);
+    this.context.stroke();
     this.startDrawing = true;
 
     console.log('Start Drawing');
   }
 
-  public doDrawing(context, coords) {
+  public doDrawing(coords) {
     if (!this.startDrawing) {
       return;
     }
 
-    context.moveTo(this.lastPosX, this.lastPosY);
-    context.lineTo(coords.positionX, coords.positionY);
-    context.stroke();
+    this.context.moveTo(this.lastPosX, this.lastPosY);
+    this.context.lineTo(coords.positionX, coords.positionY);
+    this.context.stroke();
 
     this.lastPosX = coords.positionX;
     this.lastPosY = coords.positionY;
@@ -54,20 +55,23 @@ export class PaintService {
     console.log('Drawing');
   }
 
-  public endDraw(context, coords) {
-    context.closePath();
+  public endDraw(coords) {
+    this.context.closePath();
+    this.context.save();
 
     this.lastPosX = coords.positionX;
     this.lastPosY = coords.positionY;
 
     this.startDrawing = false;
 
-    console.log('End Drawing');
+    console.log('End Draw');
+  }
+
+  public resetBoard() {
+    this.context.clearRect(0, 0, this.context.canvas.width, this.context.canvas.height);
   }
 
   private reDraw() {}
-
-  private resetBoard() {}
 
   private setHistorial() {}
 
