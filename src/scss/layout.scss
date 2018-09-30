@@ -19,7 +19,8 @@
       height: 50vh;
       position: relative;
       overflow: hidden;
-      border: 1px solid $black;
+      border: 1px solid $lightGrey;
+      box-shadow: inset 1px 1px 7px 0px rgba(0,0,0,0.2);
 
       @media (min-width: $screen-md-min) { 
           display: flex;
