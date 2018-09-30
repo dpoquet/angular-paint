@@ -1,3 +1,4 @@
+import { PaintService } from './paint-app/services/paint.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -24,7 +25,7 @@ import { ToolbarSizepickerComponent } from './paint-app/components/toolbar-sizep
     BrowserModule,
     FontAwesomeModule
   ],
-  providers: [],
+  providers: [PaintService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

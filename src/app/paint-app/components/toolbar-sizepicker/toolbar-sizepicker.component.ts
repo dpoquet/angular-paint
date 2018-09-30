@@ -1,3 +1,4 @@
+import { PaintService } from './../../services/paint.service';
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
@@ -7,14 +8,16 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ToolbarSizepickerComponent implements OnInit {
   @Input() sizes;
-  public activeSize = '3px';
+  public activeSize: string;
 
-  constructor() { }
+  constructor(private paintService: PaintService) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.selectSize('3px');
+  }
 
-  public selectSize(size) {
+  public selectSize(size: string) {
     this.activeSize = size;
-    // TODO: Set activeSize to service
+    this.paintService.activeSize = size;
   }
 }

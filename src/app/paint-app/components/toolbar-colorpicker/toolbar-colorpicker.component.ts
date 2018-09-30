@@ -1,3 +1,4 @@
+import { PaintService } from './../../services/paint.service';
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
@@ -7,14 +8,16 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ToolbarColorpickerComponent implements OnInit {
   @Input() colors;
-  public activeColor = '#000000';
+  public activeColor: string;
 
-  constructor() {}
+  constructor(private paintService: PaintService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.selectColor('#000000');
+  }
 
-  public selectColor(color) {
+  public selectColor(color: string) {
     this.activeColor = color;
-    // TODO: Set acriveColor to service
+    this.paintService.activeColor = color;
   }
 }

@@ -1,3 +1,4 @@
+import { PaintService } from './../../services/paint.service';
 import { Component, OnInit, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
 
 @Component({
@@ -14,7 +15,7 @@ export class BoardComponent implements OnInit, AfterViewInit {
   private lastY: number;
   private startDraw: Boolean = false;
 
-  constructor() {
+  constructor(private paintService: PaintService) {
     console.log('Hi board!');
   }
 
@@ -57,11 +58,11 @@ export class BoardComponent implements OnInit, AfterViewInit {
     this.canvasContext.moveTo(this.lastX, this.lastY);
     this.canvasContext.stroke();
     this.startDraw = true;
+
+    this.paintService.startDraw();
   }
 
   public handleDrawing(ev) {
-    console.log('handleDrawing', ev);
-
     if (!this.startDraw) {
       console.log('No has empezado a dibujar');
       return;
@@ -76,15 +77,18 @@ export class BoardComponent implements OnInit, AfterViewInit {
 
     this.lastX = currentX;
     this.lastY = currentY;
+
+    this.paintService.doDrawing();
   }
 
   public handleEndDraw(ev) {
-    console.log('handleEndDraw', ev);
     this.canvasContext.closePath();
 
     this.lastX = ev.layerX;
     this.lastY = ev.layerY;
 
     this.startDraw = false;
+
+    this.paintService.endDraw();
   }
 }
