@@ -11,9 +11,6 @@ export class BoardComponent implements OnInit, AfterViewInit {
   @ViewChild('boardCanvas') public boardContainer: ElementRef;
   private canvasContext: CanvasRenderingContext2D;
   private canvasElement: HTMLCanvasElement;
-  private lastX: number;
-  private lastY: number;
-  private startDraw: Boolean = false;
 
   constructor(private paintService: PaintService) {
     console.log('Hi board!');
@@ -41,12 +38,12 @@ export class BoardComponent implements OnInit, AfterViewInit {
   }
 
   public handleStartDraw(ev) {
-    if (this.startDraw) {
+/*     if (this.startDraw) {
       console.log('error, ya estás dibujando');
       return;
-    }
+    } */
 
-    this.lastX = ev.layerX;
+    /* this.lastX = ev.layerX;
     this.lastY = ev.layerY;
 
     console.log('handleStartDraw', ev);
@@ -57,18 +54,23 @@ export class BoardComponent implements OnInit, AfterViewInit {
     this.canvasContext.beginPath();
     this.canvasContext.moveTo(this.lastX, this.lastY);
     this.canvasContext.stroke();
-    this.startDraw = true;
+    this.startDraw = true; */
 
-    this.paintService.startDraw();
+    const coords = {
+      'positionX': ev.layerX,
+      'positionY': ev.layerY
+    };
+
+    this.paintService.startDraw(this.canvasContext, coords);
   }
 
   public handleDrawing(ev) {
-    if (!this.startDraw) {
+/*     if (!this.startDraw) {
       console.log('No has empezado a dibujar');
       return;
-    }
+    } */
 
-    const currentX = ev.layerX;
+/*     const currentX = ev.layerX;
     const currentY = ev.layerY;
 
     this.canvasContext.moveTo(this.lastX, this.lastY);
@@ -76,19 +78,22 @@ export class BoardComponent implements OnInit, AfterViewInit {
     this.canvasContext.stroke();
 
     this.lastX = currentX;
-    this.lastY = currentY;
+    this.lastY = currentY; */
 
-    this.paintService.doDrawing();
+    const coords = {
+      'positionX': ev.layerX,
+      'positionY': ev.layerY
+    };
+
+    this.paintService.doDrawing(this.canvasContext, coords);
   }
 
   public handleEndDraw(ev) {
-    this.canvasContext.closePath();
+    const coords = {
+      'positionX': ev.layerX,
+      'positionY': ev.layerY
+    };
 
-    this.lastX = ev.layerX;
-    this.lastY = ev.layerY;
-
-    this.startDraw = false;
-
-    this.paintService.endDraw();
+    this.paintService.endDraw(this.canvasContext, coords);
   }
 }

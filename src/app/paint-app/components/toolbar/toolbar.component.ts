@@ -28,7 +28,7 @@ export class ToolbarComponent implements OnInit {
     '#795448',
     '#f95523'];
 
-  public availableSizes = ['1px', '3px', '5px', '10px'];
+  public availableSizes = [1, 3, 5, 10];
 
   constructor() {}
 
