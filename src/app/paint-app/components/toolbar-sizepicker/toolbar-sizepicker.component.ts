@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-toolbar-sizepicker',
@@ -6,10 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./toolbar-sizepicker.component.scss']
 })
 export class ToolbarSizepickerComponent implements OnInit {
+  @Input() sizes;
+  public activeSize = '3px';
 
   constructor() { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
+  public selectSize(size) {
+    this.activeSize = size;
+    // TODO: Set activeSize to service
+  }
 }

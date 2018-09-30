@@ -1,8 +1,11 @@
 <p>Selecciona un tamaño</p>
 
 <section class="c-toolbar__section c-sizepicker">
-    <span class="c-sizepicker__size" style="height:5px;"></span>
-    <span class="c-sizepicker__size" style="height:10px;"></span>
-    <span class="c-sizepicker__size" style="height:15px;"></span>
-    <span class="c-sizepicker__size" style="height:20px;"></span>
+  <div 
+    *ngFor="let size of sizes" 
+    class="c-sizepicker__size"
+    [class.is-active]="size === activeSize" 
+    (click)="selectSize(size)">
+      <span class="c-sizepicker__size__line" [style.height]="size"></span>
+  </div>
 </section>

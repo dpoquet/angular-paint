@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-toolbar-colorpicker',
@@ -6,10 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./toolbar-colorpicker.component.scss']
 })
 export class ToolbarColorpickerComponent implements OnInit {
+  @Input() colors;
+  public activeColor = '#000000';
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  public selectColor(color) {
+    this.activeColor = color;
+    // TODO: Set acriveColor to service
   }
-
 }

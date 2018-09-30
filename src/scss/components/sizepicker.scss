@@ -1,0 +1,48 @@
+/* ==========================================================================
+   #SIZEPICKER
+   ========================================================================== */
+
+  .c-sizepicker {
+    position: relative;
+
+    &__size {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      padding: 15px 0;
+      cursor: pointer;
+
+      &:before {
+        position: absolute;
+        left: -17px;
+        top: -8px;
+        bottom: 0;
+        content: '';
+        display: none;
+        width: 9px;
+        height: 18px;
+        margin: auto;
+        border: solid $primary;
+        border-width: 0 3px 3px 0;
+        transform: rotate(45deg);
+      }
+
+      &.is-active {
+        background-color: lighten($color: $primary, $amount: 45);
+
+        @media (min-width: $screen-md-min) { 
+          &:before { display: block; }
+          background-color: transparent;
+        }
+      }
+
+      &__line {
+        display: block;
+        width: 100%;
+        background-color: $black;
+        border-radius: 10px;
+      }
+    }
+  }
