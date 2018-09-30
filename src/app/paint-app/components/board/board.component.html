@@ -1,6 +1,9 @@
 <canvas 
     #boardCanvas
     (window:resize)="onResizeBoard()" 
-    (mousedown)="handleStartDraw($event)" 
+    (mousedown)="handleStartDraw($event)"
+    (touchstart)="handleStartDraw($event)" 
     (mousemove)="handleDrawing($event)"
-    (mouseup)="handleEndDraw($event)"></canvas>
+    (touchmove)="handleDrawing($event)"
+    (mouseup)="handleEndDraw($event)"
+    (touchend)="handleEndDraw($event)"></canvas>

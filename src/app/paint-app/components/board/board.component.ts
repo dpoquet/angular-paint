@@ -12,11 +12,9 @@ export class BoardComponent implements OnInit, AfterViewInit {
   private canvasContext: CanvasRenderingContext2D;
   private canvasElement: HTMLCanvasElement;
 
-  constructor(private paintService: PaintService) {
-    console.log('Hi board!');
-  }
+  constructor(private paintService: PaintService) {}
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   ngAfterViewInit() {
     this.canvasElement = this.boardCanvas.nativeElement;
@@ -40,29 +38,36 @@ export class BoardComponent implements OnInit, AfterViewInit {
   }
 
   public handleStartDraw(ev) {
-    const coords = {
-      'positionX': ev.layerX,
-      'positionY': ev.layerY
-    };
-
+    ev.preventDefault();
+    const coords = this.getCoords(ev);
     this.paintService.startDraw(coords);
   }
 
   public handleDrawing(ev) {
-    const coords = {
-      'positionX': ev.layerX,
-      'positionY': ev.layerY
-    };
-
+    ev.preventDefault();
+    const coords = this.getCoords(ev);
     this.paintService.doDrawing(coords);
   }
 
   public handleEndDraw(ev) {
-    const coords = {
-      'positionX': ev.layerX,
-      'positionY': ev.layerY
-    };
-
+    ev.preventDefault();
+    const coords = this.getCoords(ev);
     this.paintService.endDraw(coords);
+  }
+
+  private getCoords(ev) {
+    let posX = ev.layerX;
+    let posY = ev.layerY;
+
+    if (ev.touches && ev.touches[0]) {
+      const bounding = this.canvasElement.getBoundingClientRect();
+      posX = ev.touches[0]['clientX'] - bounding.left; // Fix mouse pos
+      posY = ev.touches[0]['clientY'] - bounding.top; // Fix mouse pos
+    }
+
+    return {
+      'positionX': posX,
+      'positionY': posY
+    };
   }
 }
