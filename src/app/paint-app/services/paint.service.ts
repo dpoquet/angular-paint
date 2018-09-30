@@ -61,6 +61,10 @@ export class PaintService {
   }
 
   public endDraw(coords) {
+    if (!this.startDrawing) {
+      return;
+    }
+
     this.context.closePath();
     this.context.save();
 
