@@ -39,8 +39,4 @@ export class ToolbarComponent implements OnInit {
   }
 
   ngOnInit() {}
-
-  public reset() {
-    this.paintService.resetBoard();
-  }
 }

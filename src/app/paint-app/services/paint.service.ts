@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Historial } from '../models/historial.model';
 
 @Injectable()
 export class PaintService {
@@ -9,7 +10,9 @@ export class PaintService {
   private lastPosX: number;
   private lastPosY: number;
   private startDrawing: Boolean = false;
-  private historial = [];
+  private currentHistorial;
+  private redoHistory = [];
+  private undoHistory = [];
 
   constructor() {}
 
@@ -35,9 +38,11 @@ export class PaintService {
     this.context.beginPath();
     this.context.moveTo(this.lastPosX, this.lastPosY);
     this.context.stroke();
-    this.startDrawing = true;
 
-    console.log('Start Drawing');
+    this.currentHistorial = new Historial(
+      {'positionX': coords.positionX, 'positionY': coords.positionY}, [], this.activeColor, this.activeSize, this.activeTool);
+
+    this.startDrawing = true;
   }
 
   public doDrawing(coords) {
@@ -52,7 +57,7 @@ export class PaintService {
     this.lastPosX = coords.positionX;
     this.lastPosY = coords.positionY;
 
-    console.log('Drawing');
+    this.currentHistorial.coords.push({'positionX': coords.positionX, 'positionY': coords.positionY});
   }
 
   public endDraw(coords) {
@@ -62,20 +67,71 @@ export class PaintService {
     this.lastPosX = coords.positionX;
     this.lastPosY = coords.positionY;
 
-    this.startDrawing = false;
+    this.undoHistory.push(this.currentHistorial);
+    this.currentHistorial = null;
 
-    console.log('End Draw');
+    this.startDrawing = false;
+  }
+
+  public doUndo() {
+    const removedElement = this.undoHistory.pop();
+
+    if (removedElement) {
+      this.redoHistory.push(removedElement);
+      this.drawHistorial();
+    }
+  }
+
+  public doRedo() {
+    const removedElement = this.redoHistory.pop();
+
+    if (removedElement) {
+      this.undoHistory.push(removedElement);
+      this.drawHistorial();
+    }
   }
 
   public resetBoard() {
+    if (!this.context) {
+      return;
+    }
+
     this.context.clearRect(0, 0, this.context.canvas.width, this.context.canvas.height);
   }
 
-  private reDraw() {}
+  public drawHistorial() {
+    if (!this.context) {
+      return;
+    }
 
-  private setHistorial() {}
+    this.resetBoard();
 
-  private doUndo() {}
+    this.undoHistory.forEach(history => {
+      this.context.strokeStyle = history.color;
+      this.context.lineWidth = history.size;
 
-  private doRedo() {}
+      for (const key in history.tool.config) {
+        if (this.activeTool.config.hasOwnProperty(key)) {
+          const propierty = this.activeTool.config[key];
+          this.context[key] = propierty;
+        }
+      }
+
+      this.context.beginPath();
+      this.context.moveTo(history.initCoords.positionX, history.initCoords.positionY);
+      this.context.stroke();
+
+      let lastPosX = history.initCoords.positionX;
+      let lastPosY = history.initCoords.positionY;
+
+      history.coords.forEach(coords => {
+        this.context.moveTo(lastPosX, lastPosY);
+        this.context.lineTo(coords.positionX, coords.positionY);
+        this.context.stroke();
+
+        lastPosX = coords.positionX;
+        lastPosY = coords.positionY;
+      });
+    });
+  }
 }

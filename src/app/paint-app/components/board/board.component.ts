@@ -34,8 +34,9 @@ export class BoardComponent implements OnInit, AfterViewInit {
   }
 
   public onResizeBoard() {
-    // Fix bug remove lines when canvas resize
     this.setCanvasSize();
+    // Fixing bug about lines that disappear when canvas is resized
+    this.paintService.drawHistorial();
   }
 
   public handleStartDraw(ev) {
