@@ -1,3 +1,4 @@
+import { defaultConfig } from './../../paint-app.config';
 import { PaintService } from './../../services/paint.service';
 import { Component, OnInit, Input } from '@angular/core';
 
@@ -13,7 +14,7 @@ export class ToolbarColorpickerComponent implements OnInit {
   constructor(private paintService: PaintService) {}
 
   ngOnInit() {
-    this.selectColor('#000000');
+    this.selectColor(defaultConfig.color);
   }
 
   public selectColor(color: string) {

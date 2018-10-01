@@ -1,3 +1,4 @@
+import { defaultConfig } from './../../paint-app.config';
 import { PaintService } from './../../services/paint.service';
 import { Component, OnInit, Input } from '@angular/core';
 
@@ -13,7 +14,7 @@ export class ToolbarSizepickerComponent implements OnInit {
   constructor(private paintService: PaintService) { }
 
   ngOnInit() {
-    this.selectSize(3);
+    this.selectSize(defaultConfig.size);
   }
 
   public selectSize(size: number) {
